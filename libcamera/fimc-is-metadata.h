@@ -1,31 +1,45 @@
 /*
- * Samsung Exynos5 SoC series Camera API 2.0 HAL
+ * drivers/media/video/exynos/fimc-is-mc2/fimc-is-metadata.h
  *
- * Internal Metadata (controls/dynamic metadata and static metadata)
+ * Copyright (c) 2011 Samsung Electronics Co., Ltd.
+ *		http://www.samsung.com
  *
- * Copyright (c) 2012 Samsung Electronics Co., Ltd
- * Contact: Sungjoong Kang, <sj3.kang@samsung.com>
+ * The header file related to camera
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed toggle an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
  */
 
-/*2012.04.18 Version 0.1 Initial Release*/
-/*2012.04.23 Version 0.2 Added static metadata (draft)*/
-/*2012.07.04 Version 0.3 Applied google's undocumented changes (draft)*/
-/*2012.07.11 Version 0.4 Added FD parameters */
-/*2012.07.27 Version 0.5 Modified HSB control and DM */
-/*2012.08.28 Version 0.6 Added AA_SCENE_MODE_NIGHT_CAPTURE */
-
+/*
+ * Copyright (c) 2012, Samsung Electronics Co. LTD
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * The views and conclusions contained in the software and documentation are
+ * those of the authors and should not be interpreted as representing official
+ * policies, either expressed or implied, of the FreeBSD Project.
+ */
 
 #ifndef FIMC_IS_METADATA_H_
 #define FIMC_IS_METADATA_H_
@@ -33,10 +47,10 @@
 #ifndef _LINUX_TYPES_H
 typedef unsigned char uint8_t;
 typedef unsigned short uint16_t;
-typedef signed short 	int16_t;
-typedef signed int 	int32_t;
-typedef unsigned int 	uint32_t;
-typedef unsigned long long 		uint64_t;
+typedef signed short int16_t;
+typedef signed int int32_t;
+typedef unsigned int uint32_t;
+typedef unsigned long long uint64_t;
 #endif
 
 struct rational {
@@ -60,14 +74,6 @@ struct rational {
 enum metadata_mode {
 	METADATA_MODE_NONE,
 	METADATA_MODE_FULL
-};
-
-enum is_subscenario_id {
-	ISS_SUB_SCENARIO_STILL     = 0,			// 0: still preview
-	ISS_SUB_SCENARIO_VIDEO     = 1,			// 1: video
-	ISS_SUB_SCENARIO_FRONT_VT1 = 4,			// 4: front camera VT1 (Temporary)
-	ISS_SUB_SCENARIO_FRONT_VT2 = 5,			// 5: front camera VT2 (Temporary)
-	ISS_SUB_END,
 };
 
 struct camera2_request_ctl {
@@ -216,6 +222,7 @@ enum flash_mode {
 	CAM2_FLASH_MODE_OFF = 1,
 	CAM2_FLASH_MODE_SINGLE,
 	CAM2_FLASH_MODE_TORCH,
+	CAM2_FLASH_MODE_BEST
 };
 
 struct camera2_flash_ctl {
@@ -487,6 +494,12 @@ enum stats_mode {
 	STATS_MODE_ON
 };
 
+enum stats_lowlightmode {
+	STATE_LLS_NONE = 0,
+	STATE_LLS_LEVEL_LOW,
+	STATE_LLS_LEVEL_HIGH
+};
+
 struct camera2_stats_ctl {
 	enum facedetect_mode	faceDetectMode;
 	enum stats_mode		histogramMode;
@@ -507,7 +520,7 @@ struct camera2_stats_dm {
 /* PAYTON_CHECK_20120712 : sharpnessmap_mode -> stats_mode */
 	enum stats_mode		sharpnessMapMode;
 	/*sharpnessMap*/
-	uint32_t		reserved[1];
+	enum stats_lowlightmode LowLightMode;
 };
 
 
@@ -539,29 +552,32 @@ enum aa_mode {
 };
 
 enum aa_scene_mode {
-	AA_SCENE_MODE_UNSUPPORTED      = 1,
-	AA_SCENE_MODE_FACE_PRIORITY    = 2,
-	AA_SCENE_MODE_ACTION           = 3,
-	AA_SCENE_MODE_PORTRAIT         = 4,
-	AA_SCENE_MODE_LANDSCAPE        = 5,
-	AA_SCENE_MODE_NIGHT            = 6,
-	AA_SCENE_MODE_NIGHT_PORTRAIT   = 7,
-	AA_SCENE_MODE_THEATRE          = 8,
-	AA_SCENE_MODE_BEACH            = 9,
-	AA_SCENE_MODE_SNOW             = 10,
-	AA_SCENE_MODE_SUNSET           = 11,
-	AA_SCENE_MODE_STEADYPHOTO      = 12,
-	AA_SCENE_MODE_FIREWORKS        = 13,
-	AA_SCENE_MODE_SPORTS           = 14,
-	AA_SCENE_MODE_PARTY            = 15,
-	AA_SCENE_MODE_CANDLELIGHT      = 16,
-	AA_SCENE_MODE_BARCODE          = 17,
-	AA_SCENE_MODE_NIGHT_CAPTURE    = 18,
-	AA_SCENE_MODE_ANTISHAKE        = 19,
-	AA_SCENE_MODE_FDAE             = 22,
-	AA_SCENE_MODE_DRAMA            = 24,
-	AA_SCENE_MODE_ANIMATED         = 25,
-	AA_SCENE_MODE_PANAROMA         = 26
+	AA_SCENE_MODE_UNSUPPORTED = 1,
+	AA_SCENE_MODE_FACE_PRIORITY,
+	AA_SCENE_MODE_ACTION,
+	AA_SCENE_MODE_PORTRAIT,
+	AA_SCENE_MODE_LANDSCAPE,
+	AA_SCENE_MODE_NIGHT,
+	AA_SCENE_MODE_NIGHT_PORTRAIT,
+	AA_SCENE_MODE_THEATRE,
+	AA_SCENE_MODE_BEACH,
+	AA_SCENE_MODE_SNOW,
+	AA_SCENE_MODE_SUNSET,
+	AA_SCENE_MODE_STEADYPHOTO,
+	AA_SCENE_MODE_FIREWORKS,
+	AA_SCENE_MODE_SPORTS,
+	AA_SCENE_MODE_PARTY,
+	AA_SCENE_MODE_CANDLELIGHT,
+	AA_SCENE_MODE_BARCODE,
+	AA_SCENE_MODE_NIGHT_CAPTURE,
+	AA_SCENE_MODE_ANTISHAKE,
+	AA_SCENE_MODE_HDR,
+	AA_SCENE_MODE_LLS,
+	AA_SCENE_MODE_FDAE,
+	AA_SCENE_MODE_DUAL,
+	AA_SCENE_MODE_DRAMA,
+	AA_SCENE_MODE_ANIMATED,
+	AA_SCENE_MODE_PANAROMA
 };
 
 enum aa_effect_mode {
@@ -600,6 +616,7 @@ enum aa_ae_flashmode {
 	AA_FLASHMODE_CAPTURE,
 	/*internal 3A can control flash forced*/
 	AA_FLASHMODE_ON_ALWAYS
+
 };
 
 enum aa_ae_antibanding_mode {
@@ -689,30 +706,31 @@ struct camera2_aa_ctl {
 	uint32_t			afTrigger;
 	enum aa_isomode			isoMode;
 	uint32_t			isoValue;
+
 };
 
 struct camera2_aa_dm {
-	enum aa_mode			mode;
-	enum aa_effect_mode		effectMode;
-	enum aa_scene_mode		sceneMode;
-	uint32_t			videoStabilizationMode;
-	enum aa_aemode			aeMode;
+	enum aa_mode				mode;
+	enum aa_effect_mode			effectMode;
+	enum aa_scene_mode			sceneMode;
+	uint32_t				videoStabilizationMode;
+	enum aa_aemode				aeMode;
 	/*needs check*/
-	uint32_t			aeRegions[5];
+	uint32_t				aeRegions[5];
 	/*5 per region(x1,y1,x2,y2,weight). currently assuming 1 region.*/
-	enum ae_state			aeState;
-	enum aa_ae_flashmode		aeflashMode;
+	enum ae_state				aeState;
+	enum aa_ae_flashmode			aeflashMode;
 	/*needs check*/
-	enum aa_awbmode			awbMode;
-	uint32_t			awbRegions[5];
-	enum awb_state			awbState;
+	enum aa_awbmode				awbMode;
+	uint32_t				awbRegions[5];
+	enum awb_state				awbState;
 	/*5 per region(x1,y1,x2,y2,weight). currently assuming 1 region.*/
-	enum aa_afmode			afMode;
-	uint32_t			afRegions[5];
+	enum aa_afmode				afMode;
+	uint32_t				afRegions[5];
 	/*5 per region(x1,y1,x2,y2,weight). currently assuming 1 region*/
-	enum aa_afstate			afState;
-	enum aa_isomode			isoMode;
-	uint32_t			isoValue;
+	enum aa_afstate				afState;
+	enum aa_isomode				isoMode;
+	uint32_t				isoValue;
 };
 
 struct camera2_aa_sm {
@@ -815,9 +833,8 @@ struct camera2_sm {
 struct camera2_lens_uctl {
 	struct camera2_lens_ctl ctl;
 
-	/** It depends by af algorithm(AF pos bit. normally 8 or 9 or 10) */
+	/** It depends by af algorithm(normally 255 or 1023) */
 	uint32_t        maxPos;
-	/** It depends by af algorithm */
 	/** Some actuator support slew rate control. */
 	uint32_t        slewRate;
 };
@@ -826,9 +843,8 @@ struct camera2_lens_uctl {
 	User-defined metadata for lens.
 */
 struct camera2_lens_udm {
-	/** It depends by af algorithm(AF pos bit. normally 8 or 9 or 10) */
+	/** It depends by af algorithm(normally 255 or 1023) */
 	uint32_t        maxPos;
-	/** It depends by af algorithm */
 	/** Some actuator support slew rate control. */
 	uint32_t        slewRate;
 };
@@ -840,7 +856,7 @@ struct camera2_ae_udm {
 	/** vendor specific length */
 	uint32_t	vsLength;
 	/** vendor specific data array */
-	uint32_t vendorSpecific[CAMERA2_MAX_VENDER_LENGTH];
+	uint32_t	vendorSpecific[CAMERA2_MAX_VENDER_LENGTH];
 };
 
 /** \brief
@@ -850,7 +866,7 @@ struct camera2_awb_udm {
 	/** vendor specific length */
 	uint32_t	vsLength;
 	/** vendor specific data array */
-	uint32_t vendorSpecific[CAMERA2_MAX_VENDER_LENGTH];
+	uint32_t	vendorSpecific[CAMERA2_MAX_VENDER_LENGTH];
 };
 
 /** \brief
@@ -860,7 +876,7 @@ struct camera2_af_udm {
 	/** vendor specific length */
 	uint32_t	vsLength;
 	/** vendor specific data array */
-	uint32_t vendorSpecific[CAMERA2_MAX_VENDER_LENGTH];
+	uint32_t	vendorSpecific[CAMERA2_MAX_VENDER_LENGTH];
 };
 
 /** \brief
@@ -877,9 +893,9 @@ struct camera2_as_udm {
  User-defined metadata for aa.
 */
 struct camera2_internal_udm {
-	/** vendor specific data array */
-	uint32_t vendorSpecific1[CAMERA2_MAX_VENDER_LENGTH];
-	uint32_t vendorSpecific2[CAMERA2_MAX_VENDER_LENGTH];
+ /** vendor specific data array */
+ uint32_t vendorSpecific1[CAMERA2_MAX_VENDER_LENGTH];
+ uint32_t vendorSpecific2[CAMERA2_MAX_VENDER_LENGTH];
 };
 
 /** \brief
@@ -957,7 +973,7 @@ struct camera2_udm {
 	struct camera2_af_udm		af;
 	struct camera2_as_udm		as;
 	/* KJ_121129 : Add udm for sirc sdk. */
-	struct camera2_internal_udm		internal;
+	struct camera2_internal_udm	internal;
 	/* Add udm for bayer down size. */
 	struct camera2_bayer_udm	bayer;
 };
@@ -1197,7 +1213,6 @@ typedef struct camera2_uctl camera2_uctl_t;
 typedef struct camera2_dm camera2_dm_t;
 typedef struct camera2_sm camera2_sm_t;
 
-// PAYTON_CHECK_20120712 : Added omitted typedef struct
 typedef struct camera2_scaler_sm camera2_scaler_sm_t;
 typedef struct camera2_scaler_uctl camera2_scaler_uctl_t;
 

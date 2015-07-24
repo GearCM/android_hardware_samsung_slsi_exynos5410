@@ -1,7 +1,7 @@
 /*
  * Video for Linux Two header file for samsung
  *
- * Copyright 2012, Samsung Electronics Co. LTD
+ * Copyright (C) 2009, Dongsoo Nathaniel Kim<dongsoo45.kim@samsung.com>
  *
  * This header file contains several v4l2 APIs to be proposed to v4l2
  * community and until bein accepted, will be used restrictly in Samsung's
@@ -11,22 +11,6 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- */
-
-/*
- * Copyright 2012, Samsung Electronics Co. LTD
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed toggle an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 #ifndef __LINUX_VIDEODEV2_EXYNOS_CAMERA_H
@@ -153,6 +137,7 @@ enum v4l2_firmware_mode {
 #define V4L2_CID_CAMERA_VT_MODE		(V4L2_CID_PRIVATE_BASE + 48)
 #define V4L2_CID_CAMERA_VGA_BLUR	(V4L2_CID_PRIVATE_BASE + 49)
 #define V4L2_CID_CAMERA_CAPTURE		(V4L2_CID_PRIVATE_BASE + 50)
+#define V4L2_CID_CAMERA_HDR		(V4L2_CID_PRIVATE_BASE + 51)
 
 #define V4L2_CID_MAIN_SW_DATE_INFO_YEAR		(V4L2_CID_PRIVATE_BASE + 54)
 #define V4L2_CID_MAIN_SW_DATE_INFO_MONTH	(V4L2_CID_PRIVATE_BASE + 55)
@@ -944,6 +929,7 @@ enum v4l2_face_detection {
 	FACE_DETECTION_OFF = 0,
 	FACE_DETECTION_ON,
 	FACE_DETECTION_NOLINE,
+	FACE_DETECTION_ON_BEAUTY,
 	FACE_DETECTION_MAX,
 };
 
@@ -967,6 +953,13 @@ enum v4l2_auto_focus {
 	AUTO_FOCUS_OFF = 0,
 	AUTO_FOCUS_ON,
 	AUTO_FOCUS_MAX,
+};
+
+#define V4L2_CID_CAMERA_BEAUTY_SHOT		(V4L2_CID_PRIVATE_BASE+94)
+enum v4l2_beauty_shot {
+	BEAUTY_SHOT_OFF = 0,
+	BEAUTY_SHOT_ON,
+	BEAUTY_SHOT_MAX,
 };
 
 #define V4L2_CID_CAMERA_AEAWB_LOCK_UNLOCK	(V4L2_CID_PRIVATE_BASE+95)
@@ -1046,6 +1039,8 @@ enum v4l2_frame_rate {
 	FRAME_RATE_15 = 15,
 	FRAME_RATE_20 = 20,
 	FRAME_RATE_30 = 30,
+	FRAME_RATE_60 = 60,
+	FRAME_RATE_120 = 120,
 	FRAME_RATE_MAX
 };
 
@@ -1138,10 +1133,11 @@ enum set_3dnr_mode {
 #define V4L2_CID_CAMERA_DEFAULT_FOCUS_POSITION	(V4L2_CID_PRIVATE_BASE+151)
 /*      Pixel format FOURCC depth  Description  */
 enum v4l2_pix_format_mode {
-	V4L2_PIX_FMT_MODE_PREVIEW = 0,
-	V4L2_PIX_FMT_MODE_CAPTURE = 1,
-	V4L2_PIX_FMT_MODE_VT_MIRROR = 4,
-	V4L2_PIX_FMT_MODE_VT_NONMIRROR = 5,
+	V4L2_PIX_FMT_MODE_PREVIEW,
+	V4L2_PIX_FMT_MODE_CAPTURE,
+	V4L2_PIX_FMT_MODE_HDR,
+	V4L2_PIX_FMT_MODE_VT_MIRROR,
+	V4L2_PIX_FMT_MODE_VT_NONMIRROR,
 };
 
 /* 12  Y/CbCr 4:2:0 64x32 macroblocks */
