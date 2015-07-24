@@ -19,11 +19,11 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
-PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)-insignal
+PLATFORM_DIR := exynos5-insignal
 
 LOCAL_PRELINK_MODULE := false
 
-LOCAL_SHARED_LIBRARIES:= libutils libcutils libbinder liblog libcamera_client libhardware
+LOCAL_SHARED_LIBRARIES := libutils libcutils libbinder liblog libcamera_client libhardware
 LOCAL_SHARED_LIBRARIES += libexynosutils libhwjpeg libexynosv4l2 libexynosgscaler libion_exynos libcsc
 LOCAL_SHARED_LIBRARIES += libexpat libstlport
 LOCAL_SHARED_LIBRARIES += libpower
@@ -37,11 +37,9 @@ LOCAL_C_INCLUDES += \
 	$(LOCAL_PATH)/../include \
 	$(LOCAL_PATH)/../libcamera \
 	$(TOP)/hardware/samsung_slsi/exynos/include \
-	$(TOP)/hardware/samsung_slsi/$(TARGET_SOC)/include \
-	$(TOP)/hardware/samsung_slsi/$(PLATFORM_DIR)/include \
-	$(TOP)/hardware/samsung_slsi/$(PLATFORM_DIR)/libcamera \
+	$(TOP)/hardware/samsung_slsi/exynos5/include \
+	$(TOP)/hardware/samsung_slsi/exynos5-insignal/include \
 	$(TOP)/hardware/libhardware_legacy/include/hardware_legacy \
-	$(TOP)/vendor/samsung/feature/CscFeature/libsecnativefeature \
 	$(TOP)/bionic \
 	$(TOP)/external/expat/lib \
 	$(TOP)/external/stlport/stlport
@@ -69,7 +67,7 @@ include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
-PLATFORM_DIR := $(TARGET_BOARD_PLATFORM)-insignal
+PLATFORM_DIR := exynos5-insignal
 
 # HAL module implemenation stored in
 # hw/<COPYPIX_HARDWARE_MODULE_ID>.<ro.product.board>.so
@@ -80,9 +78,9 @@ LOCAL_C_INCLUDES += \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include \
 	$(LOCAL_PATH)/../include \
 	$(TOP)/hardware/samsung_slsi/exynos/include \
-	$(TOP)/hardware/samsung_slsi/$(TARGET_SOC)/include \
-	$(TOP)/hardware/samsung_slsi/$(PLATFORM_DIR)/include \
-	$(TOP)/hardware/samsung_slsi/$(PLATFORM_DIR)/libcamera \
+	$(TOP)/hardware/samsung_slsi/exynos/include \
+	$(TOP)/hardware/samsung_slsi/exynos5/include \
+	$(TOP)/hardware/samsung_slsi/exynos5-insignal/include \
 	frameworks/native/include \
 	system/media/camera/include
 
