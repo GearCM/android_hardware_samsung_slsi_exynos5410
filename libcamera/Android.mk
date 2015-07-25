@@ -42,7 +42,9 @@ LOCAL_C_INCLUDES += \
 	$(TOP)/hardware/libhardware_legacy/include/hardware_legacy \
 	$(TOP)/bionic \
 	$(TOP)/external/expat/lib \
-	$(TOP)/external/stlport/stlport
+	$(TOP)/external/stlport/stlport \
+	$(TOP)/frameworks/native/include \
+	$(TOP)/system/media/camera/include
 
 LOCAL_ADDITIONAL_DEPENDENCIES := \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
@@ -81,8 +83,8 @@ LOCAL_C_INCLUDES += \
 	$(TOP)/hardware/samsung_slsi/exynos/include \
 	$(TOP)/hardware/samsung_slsi/exynos5/include \
 	$(TOP)/hardware/samsung_slsi/exynos5-insignal/include \
-	frameworks/native/include \
-	system/media/camera/include
+	$(TOP)/frameworks/native/include \
+	$(TOP)/system/media/camera/include
 
 LOCAL_ADDITIONAL_DEPENDENCIES := \
 	$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
@@ -102,4 +104,3 @@ LOCAL_MODULE := camera.$(TARGET_BOOTLOADER_BOARD_NAME)
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
-
